@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: repo-modernizer-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: repo_modernizer
+      POSTGRES_PASSWORD: repo_modernizer_password
+      POSTGRES_DB: repo_modernizer
+    ports:
+      - "5432:5432"
+    volumes:
+      - repo_modernizer_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  repo_modernizer_postgres_data:

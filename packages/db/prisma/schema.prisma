@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Repository {
+  id              String        @id @default(uuid())
+  nameWithOwner   String        @unique
+  name            String
+  owner           String
+  isFork          Boolean       @default(false)
+  isArchived      Boolean       @default(false)
+  stars           Int           @default(0)
+  forks           Int           @default(0)
+  primaryLanguage String?
+  topics          String[]
+  pushedAt        DateTime
+  lastScannedAt   DateTime?
+  findings        Finding[]
+  stackProfile    StackProfile?
+  healthScores    HealthScore[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Finding {
+  id           String     @id @default(uuid())
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  category     String
+  ruleId       String
+  severity     String
+  confidence   Float
+  message      String
+  filePath     String?
+  detectedAt   DateTime   @default(now())
+  resolvedAt   DateTime?
+
+  @@index([repositoryId])
+  @@index([ruleId])
+}
+
+model StackProfile {
+  id                  String     @id @default(uuid())
+  repositoryId         String     @unique
+  repository           Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  framework            String?
+  frameworkConfidence  Float      @default(0)
+  language             String?
+  database             String?
+  databaseConfidence   Float      @default(0)
+  deployTarget         String?
+  deployConfidence     Float      @default(0)
+  rawSignals           Json?
+  detectedAt           DateTime   @default(now())
+}
+
+model HealthScore {
+  id           String     @id @default(uuid())
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  score        Int
+  breakdown    Json
+  computedAt   DateTime   @default(now())
+
+  @@index([repositoryId])
+}
+
+model Run {
+  id         String    @id @default(uuid())
+  type       String
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  status     String
+  repoCount  Int       @default(0)
+}

@@ -10,7 +10,8 @@
     "packages/**/*.tsx",
     "tools/**/*.ts",
     "*.config.ts",
-    "eslint.config.js"
+    "eslint.config.js",
+    "packages/db/tsconfig.json"
   ],
   "exclude": [
     "node_modules",
