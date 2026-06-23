@@ -1,0 +1,83 @@
+# Dependencies
+node_modules/
+
+# pnpm
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+
+# Turborepo
+.turbo/
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Prisma generated/local files
+prisma/dev.db
+prisma/dev.db-journal
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Local Ollama / model artifacts if ever stored inside repo
+models/
+ollama-data/
+
+# Docker volumes / local runtime data
+.docker-data/
+data/
+
+# GitHub app/private keys
+*.pem
+*.key
+*.crt
+
+# Secret/config files
+secrets/
+*.secret

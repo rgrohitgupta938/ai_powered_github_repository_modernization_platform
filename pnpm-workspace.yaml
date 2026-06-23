@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "tools/*"
+  - "examples/*"
+  - "!**/node_modules/**"
+  - "!**/dist/**"
+  - "!**/.turbo/**"
+  - "!**/coverage/**"
