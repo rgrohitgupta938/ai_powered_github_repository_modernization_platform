@@ -18,18 +18,26 @@ model Repository {
   primaryLanguage String?
   topics          String[]
   pushedAt        DateTime
+  githubUpdatedAt DateTime?
   lastScannedAt   DateTime?
+
   findings        Finding[]
   stackProfile    StackProfile?
   healthScores    HealthScore[]
+
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+
+  @@index([owner])
+  @@index([pushedAt])
+  @@index([lastScannedAt])
 }
 
 model Finding {
   id           String     @id @default(uuid())
   repositoryId String
   repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
   category     String
   ruleId       String
   severity     String
@@ -41,12 +49,14 @@ model Finding {
 
   @@index([repositoryId])
   @@index([ruleId])
+  @@index([severity])
 }
 
 model StackProfile {
   id                  String     @id @default(uuid())
   repositoryId         String     @unique
   repository           Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
   framework            String?
   frameworkConfidence  Float      @default(0)
   language             String?
@@ -62,11 +72,13 @@ model HealthScore {
   id           String     @id @default(uuid())
   repositoryId String
   repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
   score        Int
   breakdown    Json
   computedAt   DateTime   @default(now())
 
   @@index([repositoryId])
+  @@index([computedAt])
 }
 
 model Run {
@@ -76,4 +88,37 @@ model Run {
   finishedAt DateTime?
   status     String
   repoCount  Int       @default(0)
+  error      String?
+
+  @@index([type])
+  @@index([status])
+  @@index([startedAt])
+}
+
+model Finding {
+  id           String     @id @default(uuid())
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id])
+
+  category     String
+  ruleId       String
+  severity     String
+  confidence   Float      @default(1.0)
+  message      String
+  filePath     String?
+
+  detectedAt   DateTime   @default(now())
+  resolvedAt   DateTime?
+
+  @@unique([repositoryId, ruleId, filePath])
+}
+
+model HealthScore {
+  id           String     @id @default(uuid())
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id])
+
+  score        Int
+  breakdown    Json
+  computedAt   DateTime   @default(now())
 }
