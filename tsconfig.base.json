@@ -16,6 +16,11 @@
     "sourceMap": true,
     "composite": true,
     "incremental": true,
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@repo/*": ["packages/*/src"]
+    },
+    "ignoreDeprecations": "6.0"
   }
 }

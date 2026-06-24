@@ -1,6 +1,7 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "tools"
   - "tools/*"
   - "examples/*"
   - "!**/node_modules/**"
@@ -9,4 +10,5 @@ packages:
   - "!**/coverage/**"
 allowBuilds:
   "@prisma/engines": true
+  esbuild: true
   prisma: true

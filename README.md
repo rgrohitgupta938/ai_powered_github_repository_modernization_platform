@@ -64,7 +64,7 @@ Automatically identifies:
 
 ## Project Structure
 
-```
+```text
 ai_powered_github_repository_modernization_platform/
 ├── apps/
 │   ├── dashboard/          # Next.js dashboard (React, Recharts, Tailwind)
@@ -382,7 +382,7 @@ docker-compose up -d
 **Environment Configuration:**
 Create `.env.local` in the root directory with:
 
-```
+```bash
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/repo_modernizer
 GITHUB_TOKEN=ghp_...
 OLLAMA_BASE_URL=http://localhost:11434

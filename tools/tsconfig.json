@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "../dist/tools",
+    "rootDir": "."
+  },
+  "references": [
+    { "path": "../packages/core-types" },
+    { "path": "../packages/db" },
+    { "path": "../packages/github-client" },
+    { "path": "../packages/repo-scanner" }
+  ],
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "../node_modules"]
+}
